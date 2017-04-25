@@ -6,5 +6,5 @@ target 'chatDKRR' do
   use_frameworks!
 
   # Pods for chatDKRR
-
+  pod "SwiftPhoenixClient"
 end

@@ -12,6 +12,7 @@
 		1C5C923F1EAF4522006C7135 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C5C923D1EAF4522006C7135 /* Main.storyboard */; };
 		1C5C92411EAF4522006C7135 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C5C92401EAF4522006C7135 /* Assets.xcassets */; };
 		1C5C92441EAF4522006C7135 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C5C92421EAF4522006C7135 /* LaunchScreen.storyboard */; };
+		25941FD9CCD48E4FABF32D5B /* Pods_chatDKRR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A39E4C815DA4E1B772B903 /* Pods_chatDKRR.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		1C5C92401EAF4522006C7135 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C5C92431EAF4522006C7135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C5C92451EAF4522006C7135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39FA619A421409D09735D436 /* Pods-chatDKRR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatDKRR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chatDKRR/Pods-chatDKRR.debug.xcconfig"; sourceTree = "<group>"; };
+		69A39E4C815DA4E1B772B903 /* Pods_chatDKRR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatDKRR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBACF848052AA1CA7B19B697 /* Pods-chatDKRR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatDKRR.release.xcconfig"; path = "Pods/Target Support Files/Pods-chatDKRR/Pods-chatDKRR.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25941FD9CCD48E4FABF32D5B /* Pods_chatDKRR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				1C5C92381EAF4522006C7135 /* chatDKRR */,
 				1C5C92371EAF4522006C7135 /* Products */,
+				72FF1C8DC88151226E83BDED /* Pods */,
+				A0706793E23A73ED4352ECA3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,23 @@
 			path = chatDKRR;
 			sourceTree = "<group>";
 		};
+		72FF1C8DC88151226E83BDED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				39FA619A421409D09735D436 /* Pods-chatDKRR.debug.xcconfig */,
+				CBACF848052AA1CA7B19B697 /* Pods-chatDKRR.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A0706793E23A73ED4352ECA3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				69A39E4C815DA4E1B772B903 /* Pods_chatDKRR.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C5C92481EAF4522006C7135 /* Build configuration list for PBXNativeTarget "chatDKRR" */;
 			buildPhases = (
+				0414E3F07F53530527873FA4 /* [CP] Check Pods Manifest.lock */,
 				1C5C92321EAF4522006C7135 /* Sources */,
 				1C5C92331EAF4522006C7135 /* Frameworks */,
 				1C5C92341EAF4522006C7135 /* Resources */,
+				F451C0E125BDF6B16AA1B4C7 /* [CP] Embed Pods Frameworks */,
+				DEF2A7C70EBE210C42D96C04 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,6 +158,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0414E3F07F53530527873FA4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DEF2A7C70EBE210C42D96C04 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-chatDKRR/Pods-chatDKRR-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F451C0E125BDF6B16AA1B4C7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-chatDKRR/Pods-chatDKRR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1C5C92321EAF4522006C7135 /* Sources */ = {
@@ -261,6 +336,7 @@
 		};
 		1C5C92491EAF4522006C7135 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39FA619A421409D09735D436 /* Pods-chatDKRR.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = RMA2F2SR2P;
@@ -274,6 +350,7 @@
 		};
 		1C5C924A1EAF4522006C7135 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CBACF848052AA1CA7B19B697 /* Pods-chatDKRR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = RMA2F2SR2P;
