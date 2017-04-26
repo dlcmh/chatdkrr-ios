@@ -13,6 +13,7 @@
 		1C5C92411EAF4522006C7135 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C5C92401EAF4522006C7135 /* Assets.xcassets */; };
 		1C5C92441EAF4522006C7135 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C5C92421EAF4522006C7135 /* LaunchScreen.storyboard */; };
 		1C84B9FA1EB0947100DE22A3 /* KeyboardLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84B9F91EB0947100DE22A3 /* KeyboardLayoutConstraint.swift */; };
+		1C84BA1E1EB0C8DD00DE22A3 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84BA1D1EB0C8DD00DE22A3 /* MessageTableViewCell.swift */; };
 		25941FD9CCD48E4FABF32D5B /* Pods_chatDKRR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A39E4C815DA4E1B772B903 /* Pods_chatDKRR.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		1C5C92431EAF4522006C7135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C5C92451EAF4522006C7135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C84B9F91EB0947100DE22A3 /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
+		1C84BA1D1EB0C8DD00DE22A3 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		39FA619A421409D09735D436 /* Pods-chatDKRR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatDKRR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chatDKRR/Pods-chatDKRR.debug.xcconfig"; sourceTree = "<group>"; };
 		69A39E4C815DA4E1B772B903 /* Pods_chatDKRR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatDKRR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBACF848052AA1CA7B19B697 /* Pods-chatDKRR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatDKRR.release.xcconfig"; path = "Pods/Target Support Files/Pods-chatDKRR/Pods-chatDKRR.release.xcconfig"; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				1C5C92391EAF4522006C7135 /* AppDelegate.swift */,
 				1C5C923B1EAF4522006C7135 /* ViewController.swift */,
 				1C84B9F91EB0947100DE22A3 /* KeyboardLayoutConstraint.swift */,
+				1C84BA1D1EB0C8DD00DE22A3 /* MessageTableViewCell.swift */,
 				1C5C923D1EAF4522006C7135 /* Main.storyboard */,
 				1C5C92401EAF4522006C7135 /* Assets.xcassets */,
 				1C5C92421EAF4522006C7135 /* LaunchScreen.storyboard */,
@@ -216,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C5C923C1EAF4522006C7135 /* ViewController.swift in Sources */,
+				1C84BA1E1EB0C8DD00DE22A3 /* MessageTableViewCell.swift in Sources */,
 				1C5C923A1EAF4522006C7135 /* AppDelegate.swift in Sources */,
 				1C84B9FA1EB0947100DE22A3 /* KeyboardLayoutConstraint.swift in Sources */,
 			);

@@ -9,10 +9,11 @@
 import UIKit
 import SwiftPhoenixClient
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var messageField: UITextField!
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var chatWindow: UITextView!
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
 //    let socket = Socket(domainAndPort: "localhost:4000", path: "socket", transport: "websocket")
     let socket = Socket(
@@ -24,9 +25,15 @@ class ViewController: UIViewController {
     var nameIsAssigned = false
     var username = ""
     var usernameColor = ""
+    
+    var chatMessages = [Message]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        messageField.delegate = self
         
         // Join the socket and establish handlers for users entering and submitting messages
         // message: needs to be an empty Dictionary if no message is intended to be sent
@@ -34,7 +41,7 @@ class ViewController: UIViewController {
             let chan = channel as! Channel
             
             chan.on(event: "join") {payload in
-                self.chatWindow.text = "You've connected to the room.\n"
+                self.statusLabel.text = "Connected"
             }
             
             chan.on(event: "new_user") {payload in
@@ -45,7 +52,8 @@ class ViewController: UIViewController {
                         return
                 }
                 self.nameIsAssigned = true
-                self.usernameColor = usernameColor as! String
+                self.usernameColor = (usernameColor as? String)!
+                self.username = (username as? String)!
                 self.usernameLabel.text = username as? String
                 self.usernameLabel.textColor = UIColor(hexString: (usernameColor as? String)!)
             }
@@ -55,16 +63,38 @@ class ViewController: UIViewController {
                     let payload = payload as? Message else {
                         return
                 }
-                self.updateChatWindow(payload: payload)
+//                self.updateChatWindow(payload: payload)
+                self.chatMessages.append(payload)
+                self.tableView.reloadData()
+//                print(String(describing: self.chatMessages.last!["message"] as! String))
             }
         }
     }
     
-    func updateChatWindow(payload: Message) {
-        let chatMessage = payload["message"] as! String
-        let updatedText = "\(chatWindow.text.appending(chatMessage))\n"
-        chatWindow.text = updatedText
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return chatMessages.count
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell") as! MessageTableViewCell
+//        print("indexPath.row: \(indexPath.row)")
+        let chatMessage = chatMessages[indexPath.row]
+        cell.usernameLabel.text = chatMessage["username"] as? String
+        cell.messageLabel.text = chatMessage["message"] as? String
+        return cell
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+//    func updateChatWindow(payload: Message) {
+//        let chatMessage = payload["message"] as! String
+//        let updatedText = "\(chatWindow.text.appending(chatMessage))\n"
+//        chatWindow.text = updatedText
+//    }
     
     @IBAction func sendMessage(_ sender: UIButton) {
         let msg = messageField.text!
