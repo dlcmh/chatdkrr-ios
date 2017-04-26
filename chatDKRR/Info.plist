@@ -4,6 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>WEBSOCKET_HOST</key>
+	<string>$(WEBSOCKET_HOST)</string>
+	<key>WEBSOCKET_PROTOCOL</key>
+	<string>$(WEBSOCKET_PROTOCOL)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

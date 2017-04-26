@@ -7,13 +7,86 @@
 //
 
 import UIKit
+import SwiftPhoenixClient
 
 class ViewController: UIViewController {
+    @IBOutlet weak var messageField: UITextField!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var chatWindow: UITextView!
+    
+//    let socket = Socket(domainAndPort: "localhost:4000", path: "socket", transport: "websocket")
+    let socket = Socket(
+        domainAndPort: Bundle.main.infoDictionary!["WEBSOCKET_HOST"] as! String,
+        path: "socket", transport: "websocket",
+        prot: Bundle.main.infoDictionary!["WEBSOCKET_PROTOCOL"] as! String
+    )
+    let topic = "room:lobby"
+    var nameIsAssigned = false
+    var username = ""
+    var usernameColor = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Join the socket and establish handlers for users entering and submitting messages
+        // message: needs to be an empty Dictionary if no message is intended to be sent
+        socket.join(topic: topic, message: Message(message: ["": ""])) { channel in
+            let chan = channel as! Channel
+            
+            chan.on(event: "join") {payload in
+                self.chatWindow.text = "You've connected to the room.\n"
+            }
+            
+            chan.on(event: "new_user") {payload in
+                guard
+                    let payload = payload as? Message,
+                    let username = payload["username"],
+                    let usernameColor = payload["color"] else {
+                        return
+                }
+                self.nameIsAssigned = true
+                self.usernameColor = usernameColor as! String
+                self.usernameLabel.text = username as? String
+                self.usernameLabel.textColor = UIColor(hexString: (usernameColor as? String)!)
+            }
+            
+            chan.on(event: "new_msg") {payload in
+                guard
+                    let payload = payload as? Message else {
+                        return
+                }
+                self.updateChatWindow(payload: payload)
+            }
+        }
     }
+    
+    func updateChatWindow(payload: Message) {
+        let chatMessage = payload["message"] as! String
+        let updatedText = "\(chatWindow.text.appending(chatMessage))\n"
+        chatWindow.text = updatedText
+    }
+    
+    @IBAction func sendMessage(_ sender: UIButton) {
+        let msg = messageField.text!
+        var payload: Payload
+        if nameIsAssigned == false {
+            payload = Payload(topic: topic, event: "new_user", message: Message(message: ["username": msg]))
+        } else {
+            payload = Payload(
+                topic: topic, event: "new_msg",
+                message: Message(
+                    message: [
+                        "username": username,
+                        "usernameColor": usernameColor,
+                        "message": msg
+                    ]
+                )
+            )
+        }
+        socket.send(data: payload)
+        messageField.text = ""
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -21,5 +94,38 @@ class ViewController: UIViewController {
     }
 
 
+}
+
+
+extension UIColor {
+    // http://stackoverflow.com/questions/24263007/how-to-use-hex-colour-values-in-swift-ios/33397427#33397427
+    convenience init(hexString: String) {
+        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int = UInt32()
+        Scanner(string: hex).scanHexInt32(&int)
+        let a, r, g, b: UInt32
+        switch hex.characters.count {
+        case 3: // RGB (12-bit)
+            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+        case 6: // RGB (24-bit)
+            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+        case 8: // ARGB (32-bit)
+            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+        default:
+            (a, r, g, b) = (255, 0, 0, 0)
+        }
+        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
+    }
+
+    // http://stackoverflow.com/questions/24263007/how-to-use-hex-colour-values-in-swift-ios/27270584#27270584
+    convenience init(hex: Int) {
+        let components = (
+            R: CGFloat((hex >> 16) & 0xff) / 255,
+            G: CGFloat((hex >> 08) & 0xff) / 255,
+            B: CGFloat((hex >> 00) & 0xff) / 255
+        )
+        self.init(red: components.R, green: components.G, blue: components.B, alpha: 1)
+    }
+    
 }
 
